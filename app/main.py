@@ -6,7 +6,7 @@ from app.shop import Shop
 from app.utils import (
     calc_distance,
     require_keys,
-    fmt_money
+    fmt_money,
 )
 
 
@@ -26,11 +26,12 @@ def shop_trip() -> None:
     customers: list[Customer] = []
     for customer_dict in customers_data:
         if "car" not in customer_dict:
+            customer_name = customer_dict.get(
+                "name", "unknown customer"
+            )
             raise ValueError(
                 f"Car is missing for "
-                f"{customer_dict.get(
-                    'name', 'unknown customer'
-                )}"
+                f"{customer_name}"
             )
 
         car = Car(**customer_dict["car"])
@@ -47,7 +48,10 @@ def shop_trip() -> None:
     ]
 
     for customer in customers:
-        print(f"{customer.name} has {fmt_money(customer.money)} dollars")
+        print(
+            f"{customer.name} has "
+            f"{fmt_money(customer.money)} dollars"
+        )
 
         shop_costs: list[tuple[Shop, float]] = []
 
