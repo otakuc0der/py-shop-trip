@@ -3,7 +3,11 @@ import json
 from app.car import Car
 from app.customer import Customer
 from app.shop import Shop
-from app.utils import calc_distance, require_keys
+from app.utils import (
+    calc_distance,
+    require_keys,
+    fmt_money
+)
 
 
 def shop_trip() -> None:
@@ -35,9 +39,7 @@ def shop_trip() -> None:
             for k, v in customer_dict.items()
             if k != "car"
         }
-
-        customer = Customer(**customer_payload)
-        customer.car = car
+        customer = Customer(car=car, **customer_payload)
         customers.append(customer)
 
     shops: list[Shop] = [
@@ -45,7 +47,7 @@ def shop_trip() -> None:
     ]
 
     for customer in customers:
-        print(f"{customer.name} has {customer.money} dollars")
+        print(f"{customer.name} has {fmt_money(customer.money)} dollars")
 
         shop_costs: list[tuple[Shop, float]] = []
 
@@ -97,7 +99,7 @@ def shop_trip() -> None:
 
         customer.pay(best_cost)
         print(
-            f"{customer.name} now "
-            f"has {customer.money:.2f} dollars"
+            f"{customer.name} now has "
+            f"{fmt_money(customer.money)} dollars"
         )
         print()

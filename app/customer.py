@@ -7,9 +7,9 @@ from app.car import Car
 class Customer:
     name: str
     money: float
+    car: Car
     location: list[int] = field(default_factory=list)
     product_cart: dict[str, int] = field(default_factory=dict)
-    car: Car = field(init=False)
     home_location: list[int] = field(init=False)
 
     def __post_init__(self) -> None:
