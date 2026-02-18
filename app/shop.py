@@ -27,9 +27,9 @@ class Shop:
         )
 
     def print_receipt(self, customer: Customer) -> None:
-        print(f"Date: {datetime.datetime.now().strftime(
+        print(f'Date: {datetime.datetime.now().strftime(
             "%d/%m/%Y %H:%M:%S"
-        )}")
+        )}')
         print(f"Thanks, {customer.name}, for your purchase!")
         print("You have bought:")
 
